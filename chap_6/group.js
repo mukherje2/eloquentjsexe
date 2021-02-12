@@ -29,3 +29,29 @@ group.add(10);
 group.delete(10);
 console.log(group.has(10));
 // → false
+
+class GroupIterator {
+  constructor(g) {
+    this.position = 0;
+    this.group = g;
+  }
+  next() {
+    if (this.position >= this.group.contents.length) return { done: true };
+    this.position++;
+    return {
+      value: this.group.contents[this.position - 1],
+      done: false,
+    };
+  }
+}
+
+Group.prototype[Symbol.iterator] = function () {
+  return new GroupIterator(this);
+};
+
+for (let value of Group.from(["a", "b", "c"])) {
+  console.log(value);
+}
+// → a
+// → b
+// → c
