@@ -1,1 +1,3 @@
-play.js
+play*.js
+.#*
+.DS_Store
